@@ -1,0 +1,11 @@
+Model Information:
+* title:	[BA] MK18 CQBR
+* source:	https://sketchfab.com/3d-models/ba-mk18-cqbr-d9e70d9bc89c40cca70f6c0502b0de57
+* author:	xlisov (https://sketchfab.com/xlisov74)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "[BA] MK18 CQBR" (https://sketchfab.com/3d-models/ba-mk18-cqbr-d9e70d9bc89c40cca70f6c0502b0de57) by xlisov (https://sketchfab.com/xlisov74) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

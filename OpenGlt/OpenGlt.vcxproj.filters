@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="assets">
+      <UniqueIdentifier>{9088BE05-431B-48D2-BE3C-D673F71D6D32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\images">
+      <UniqueIdentifier>{57FB7045-D00A-400C-8714-7FA29F095BF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\Models">
+      <UniqueIdentifier>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\Models\lotr_troll">
+      <UniqueIdentifier>{36882C13-1A30-47C4-92C8-86AB5FAD2C26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\Models\lotr_troll\textures">
+      <UniqueIdentifier>{8667C280-C5CA-4E92-9DFF-9AFEF2FC79C9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{0ABEA078-D033-4F9D-A257-C23640DAC317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\graphics">
+      <UniqueIdentifier>{EF94EC21-809D-4347-A151-8CB5725CB25B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\graphics\models">
+      <UniqueIdentifier>{64C2ECE9-91F4-4933-BD84-99895D758291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\io">
+      <UniqueIdentifier>{69B058CB-1188-4631-9831-DAF01D7EDF68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\Models\gun">
+      <UniqueIdentifier>{81B352B5-41CB-4CCB-935E-FDCFDE99C9FC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\fragmentShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\fragment_core2.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\lampFragmentShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\lampVertexShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\vertexShader.glsl">
+      <Filter>assets</Filter>
+    </None>
+    <None Include="assets\Models\lotr\license.txt">
+      <Filter>assets\Models\lotr_troll</Filter>
+    </None>
+    <None Include="assets\Models\lotr\scene.bin">
+      <Filter>assets\Models\lotr_troll</Filter>
+    </None>
+    <None Include="assets\Models\lotr\scene.gltf">
+      <Filter>assets\Models\lotr_troll</Filter>
+    </None>
+    <Image Include="assets\images\flag.jpg">
+      <Filter>assets\images</Filter>
+    </Image>
+    <Image Include="assets\images\flagspecular.jpg">
+      <Filter>assets\images</Filter>
+    </Image>
+    <Image Include="assets\images\im1.jpg">
+      <Filter>assets\images</Filter>
+    </Image>
+    <Image Include="assets\images\im2.jpg">
+      <Filter>assets\images</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTrollPants_baseColor.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTrollPants_metallicRoughness.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTrollPants_normal.jpeg">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTroll_baseColor.jpeg">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTroll_metallicRoughness.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr_troll\textures\TEX_CaveTroll_normal.jpeg">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_pants_baseColor.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_pants_metallicRoughness.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_pants_normal.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_Troll_baseColor.jpeg">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_Troll_emissive.jpeg">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_Troll_metallicRoughness.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <Image Include="assets\Models\lotr\textures\TEX_Troll_normal.png">
+      <Filter>assets\Models\lotr_troll\textures</Filter>
+    </Image>
+    <ClCompile Include="src\glad.c">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="stb.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\light.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\material.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\mesh.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\model.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\Shader.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\texture.cpp">
+      <Filter>src\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\Camera.cpp">
+      <Filter>src\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\joystick.cpp">
+      <Filter>src\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\keyboard.cpp">
+      <Filter>src\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\Mouse.cpp">
+      <Filter>src\io</Filter>
+    </ClCompile>
+    <ClCompile Include="src\io\Screen.cpp">
+      <Filter>src\io</Filter>
+    </ClCompile>
+    <ClInclude Include="src\graphics\light.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\material.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\mesh.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\model.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\Shader.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\texture.h">
+      <Filter>src\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\models\cube.hpp">
+      <Filter>src\graphics\models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\models\gun.hpp">
+      <Filter>src\graphics\models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\models\lamp.hpp">
+      <Filter>src\graphics\models</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\Camera.h">
+      <Filter>src\io</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\joystick.h">
+      <Filter>src\io</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\keyboard.h">
+      <Filter>src\io</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\Mouse.h">
+      <Filter>src\io</Filter>
+    </ClInclude>
+    <ClInclude Include="src\io\Screen.h">
+      <Filter>src\io</Filter>
+    </ClInclude>
+    <None Include="assimp-vc143-mtd.dll" />
+    <None Include="glfw3.dll" />
+    <None Include="..\..\..\..\Downloads\ak-47\scene.bin" />
+    <None Include="assets\Models\mk18\scene.bin" />
+    <None Include="assets\Models\mk18\scene.gltf" />
+    <None Include="assets\Models\sphere\scene.bin" />
+    <None Include="assets\Models\sphere\scene.gltf" />
+    <None Include="assets\instance\instance.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Models\mk18\textures\body_baseColor.png" />
+    <Image Include="assets\Models\mk18\textures\body_metallicRoughness.png" />
+    <Image Include="assets\Models\mk18\textures\body_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="assets\Models\mk18\license.txt" />
+    <Text Include="assets\Models\sphere\license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\physics\rigidbody.h" />
+    <ClInclude Include="src\graphics\models\sphere.hpp" />
+    <ClInclude Include="src\physics\environment.h" />
+    <ClInclude Include="src\imgui\imconfig.h" />
+    <ClInclude Include="src\imgui\imgui.h" />
+    <ClInclude Include="src\imgui\imgui_internal.h" />
+    <ClInclude Include="src\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\graphics\models\modelarray.hpp" />
+    <ClInclude Include="src\algorithm\bounce.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\physics\rigidbody.cpp" />
+    <ClCompile Include="src\physics\enviornment.cpp" />
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\algorithm\bounce.cpp" />
+  </ItemGroup>
+</Project>
