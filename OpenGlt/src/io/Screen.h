@@ -17,13 +17,15 @@ public :
 	bool init();
 	void setParameters();
 
-
+	GLFWwindow* getWindow() { return window; }
 
 	void update();
 	void newFrame();
 
 	bool shouldclose();
 	void setShouldClose(bool close);
+	void setCursorMode(int mode);
+	int getCursorMode();
 
 
 private:

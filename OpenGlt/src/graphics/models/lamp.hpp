@@ -18,7 +18,7 @@ public:
     // light strength values
     PointLight pointLight;
 
-    Lamp() : Cube(Material::gold) {}
+    Lamp() : Cube(Material::gold), lightColor(glm::vec3(1.0f)), pointLight{glm::vec3(0), glm::vec3(0), glm::vec3(0), glm::vec3(0), 1.0f, 0.09f, 0.032f} {}
 
     Lamp(
         glm::vec3 lightColor,
@@ -38,10 +38,10 @@ public:
         // Cube constructor already set pos and size
     }
 
-    void render(Shader shader,float deltaTime,bool noModel)
+    void render(Shader shader, float dt, bool setModel=false, bool doRender=false)
     {
         shader.set3Float("lightColor", lightColor);
-        Cube::render(shader, deltaTime,true);
+        Model::render(shader, dt, setModel, doRender);
     }
 
   

@@ -17,15 +17,21 @@ uniform int useInstancing; // 1 when drawing instanced, else 0
 
 void main()
 {
-    // Apply per-instance scale and translation in world space (optional)
-    vec3 size = (useInstancing == 1) ? iSize : vec3(1.0);
-    vec3 offset = (useInstancing == 1) ? iPos : vec3(0.0);
-    vec3 scaled = aPos * size;
-    vec3 world = vec3(model * vec4(scaled + offset, 1.0));
-    FragPos = world;
+    vec4 worldPos;
+    
+    if (useInstancing == 1) {
+        // Apply per-instance scale and translation in world space
+        vec3 scaled = aPos * iSize;
+        worldPos = model * vec4(scaled + iPos, 1.0);
+    } else {
+        // Standard transformation (model matrix already contains translation and scale)
+        worldPos = model * vec4(aPos, 1.0);
+    }
+    
+    FragPos = vec3(worldPos);
 
     Normal = mat3(transpose(inverse(model))) * aNormal; // Approximate normal transform
 
-    gl_Position = projection * view * vec4(FragPos, 1.0);
+    gl_Position = projection * view * worldPos;
     TexCoord = aTexCoord;
 }

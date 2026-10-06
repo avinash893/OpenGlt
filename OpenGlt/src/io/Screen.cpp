@@ -32,7 +32,7 @@ void Screen::setParameters()
 	glfwSetCursorPosCallback(window, Mouse::cursorposCallback);
 	glfwSetMouseButtonCallback(window, Mouse::mouseButtonCallback);
 	glfwSetScrollCallback(window, Mouse::mouseWheelCallback);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL); 
 
 }
 
@@ -57,3 +57,16 @@ void Screen::setShouldClose(bool close)
 {
 	glfwSetWindowShouldClose(window, close);
 }
+
+void Screen::setCursorMode(int mode)
+{
+	if (window)
+		glfwSetInputMode(window, GLFW_CURSOR, mode);
+}
+
+int Screen::getCursorMode()
+{
+	if (window)
+		return glfwGetInputMode(window, GLFW_CURSOR);
+	return GLFW_CURSOR_NORMAL;
+}

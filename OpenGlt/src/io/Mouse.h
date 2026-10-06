@@ -24,6 +24,7 @@ public:
 	static bool buttonChanged(int button);
 	static bool buttonUp(int button);
 	static bool buttonDown(int button);
+	static void resetFirstMouse();
 
 
 

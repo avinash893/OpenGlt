@@ -80,15 +80,9 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
     
-    // Use textures if available, otherwise fallback to material colors
+    // Sample textures (default white textures are provided if no textures loaded)
     vec3 diffMap = vec3(texture(diffuse0, TexCoord));
     vec3 specMap = vec3(texture(specular0, TexCoord));
-    if (diffMap == vec3(0.0)) {
-        diffMap = material.diffuse;
-    }
-    if (specMap == vec3(0.0)) {
-        specMap = material.specular;
-    }
 
     // **CORRECTION**: Initialize result to zero to avoid garbage values.
     vec3 result = vec3(0.0);

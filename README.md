@@ -94,12 +94,28 @@ To build in Release mode, modify the build command:
 cmake --build . --config Release
 ```
 
-## Development
+## Features
 
-The project is now configured to use CMake, which provides:
-- Cross-platform compatibility
-- Better dependency management
-- Easier integration with IDEs
-- More flexible build configurations
+- **Dear ImGui Editor Interface**: Integrated native editor panels for scene management, object inspection, and asset browsing.
+- **Drag & Drop 3D Model Loading**: Drag and drop `.gltf`, `.glb`, `.obj`, `.fbx`, `.stl` files directly into the window. The model loads automatically and the camera immediately focuses to show it.
+- **File System Browser & Native File Dialog**: Browse directory trees or open Windows native file picker to import any model.
+- **Scene Hierarchy & Inspector**: Full tree hierarchy with object selection, transform editing (Position, Rotation, Scale), and object deletion.
+- **Duplication (Shift + D)**: Instantly clone any selected 3D object in the GUI or via hotkey.
+- **Object Picking & Movement**: Left-click directly on objects in the 3D viewport to select them, and move them with mouse grab (`G`) or transform sliders.
+- **Blender/Unity Style Camera Navigation**: Cursor remains free for GUI interaction; hold Right Mouse Button or press `TAB` to enter fly-look camera mode (WASD).
 
-All existing Visual Studio project files are preserved and can still be used if needed.
+## Controls & Hotkeys
+
+| Action | Control / Hotkey |
+| --- | --- |
+| **Select Object** | Left-Click on object in viewport or hierarchy |
+| **Duplicate Object** | `Shift + D` (or GUI button) |
+| **Delete Object** | `Delete` / `Backspace` (or GUI button) |
+| **Grab / Move with Mouse** | `G` key (Click/Enter to confirm, Esc to cancel) |
+| **Focus Camera on Object** | `F` key (or GUI button) |
+| **Fly Camera Look** | Hold Right Mouse Button (or press `TAB` to toggle) |
+| **Camera Movement** | `W`, `A`, `S`, `D`, `Space` (Up), `Left Shift` (Down) |
+| **Camera Zoom** | Mouse Scroll Wheel |
+| **Toggle Spotlight** | `T` |
+| **Launch Physics Sphere** | `H` |
+| **Drag & Drop File** | Drag any 3D file (.gltf, .obj, etc.) into the window |

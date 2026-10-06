@@ -25,7 +25,7 @@ public:
  }
     void init()
     {
-        int noVertives = 36;
+        unsigned int noVertives = 36;
         float vertices[] = {
             // position                 normal              texcoord
             -0.5f, -0.5f, -0.5f,     0.0f,  0.0f, -1.0f,    0.0f, 0.0f,
@@ -77,9 +77,9 @@ public:
         meshes.push_back(Mesh(Vertex::genList(vertices, noVertives), indices));
     }
 
-void render(Shader shader, float dt, bool setModel = true)
+void render(Shader shader)
     {
-    Model::render(shader, dt, setModel);
+    Model::render(shader, 0.0f, true);
 }
 
     void cleanup()

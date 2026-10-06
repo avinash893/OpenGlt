@@ -15,8 +15,8 @@ Camera::Camera(glm::vec3 position)
 void Camera::updateCameraDirection(double dx, double dy)
 {
 	float sensitivity = 0.1f; // Mouse sensitivity
-	yaw += dx*sensitivity;
-	pitch -= dy*sensitivity;
+	yaw += (float)dx * sensitivity;
+	pitch -= (float)dy * sensitivity;
 
 	if (pitch > 89.0f)
 		pitch = 89.0f;
@@ -49,7 +49,7 @@ void Camera::updateCameraPos(CameraDirection direction, float deltaTime)
 void Camera::updateCameraZoom(double dy)
 {
 	if (zoom >= 1.0f && zoom <= 45.0f)
-		zoom -= dy;
+		zoom -= (float)dy;
 
 	if (zoom <= 1.0f)
 		zoom = 1.0f;
@@ -76,4 +76,14 @@ void Camera::updateCameraVectors()
 float Camera::getZoom()
 {
 	return zoom;
+}
+
+void Camera::focusOn(glm::vec3 target, float distance)
+{
+	if (distance < 1.0f) distance = 1.0f;
+	cameraPos = target - cameraFront * distance;
+	glm::vec3 dir = glm::normalize(target - cameraPos);
+	pitch = glm::degrees(asinf(dir.y));
+	yaw = glm::degrees(atan2f(dir.z, dir.x));
+	updateCameraVectors();
 }

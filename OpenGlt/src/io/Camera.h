@@ -39,9 +39,10 @@ public:
 
 	float getZoom();
 	glm::mat4 getViewMatrix();
+	void updateCameraVectors();
+	void focusOn(glm::vec3 target, float distance = 4.0f);
 
 private:
-	void updateCameraVectors();
 
 	
 

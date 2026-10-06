@@ -23,6 +23,7 @@ Set-Location "build"
 
 # Try different Visual Studio generators
 $generators = @(
+    "Visual Studio 18 2026",
     "Visual Studio 17 2022",
     "Visual Studio 16 2019", 
     "Visual Studio 15 2017"

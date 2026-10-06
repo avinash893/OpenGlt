@@ -51,60 +51,52 @@ void Mesh::render(Shader shader,bool doRender)
     shader.set3Float("material.specular", material.specular);
     shader.setFloat("material.shininess", material.shininess);
     
-    // Activating textures
-    unsigned int diffuseIdx = 1;  // Start at 1 for naming convention (e.g., diffuse1)
-    unsigned int specularIdx = 1; // Start at 1 for naming convention (e.g., specular1)
-
-    if (textures.empty()) {
-        // No textures available, bind default white textures
-        Texture& defaultDiffuse = Texture::getDefaultDiffuseTexture();
-        Texture& defaultSpecular = Texture::getDefaultSpecularTexture();
-        
-        // Bind default diffuse texture to texture unit 0
-        glActiveTexture(GL_TEXTURE0);
-        shader.setInt("diffuse0", 0);
-        defaultDiffuse.bind();
-        
-        // Bind default specular texture to texture unit 1
-        glActiveTexture(GL_TEXTURE1);
-        shader.setInt("specular0", 1);
-        defaultSpecular.bind();
-    } else {
-        // Bind actual textures
-        for (unsigned int i = 0; i < textures.size(); i++)
+    // Find diffuse and specular textures
+    Texture* diffuseTex = nullptr;
+    Texture* specularTex = nullptr;
+    
+    for (unsigned int i = 0; i < textures.size(); i++)
+    {
+        if (textures[i].type == aiTextureType_DIFFUSE && !diffuseTex)
         {
-            // Activate texture unit before binding
-            glActiveTexture(GL_TEXTURE0 + i);
-
-            // Retrieve texture type and name
-            std::string name;
-            std::string number;
-            switch (textures[i].type)
-            {
-            case aiTextureType_DIFFUSE:
-                name = "material.diffuse";
-                number = std::to_string(diffuseIdx++);
-                break;
-            case aiTextureType_SPECULAR:
-                name = "material.specular";
-                number = std::to_string(specularIdx++);
-                break;
-            default:
-                name = "texture"; // Fallback name
-                number = std::to_string(i);
-                break;
-            }
-
-            // Set the texture uniform in the shader (e.g., "material.diffuse1")
-            shader.setInt((name + number), static_cast<int>(i));
-            textures[i].bind();
+            diffuseTex = &textures[i];
+        }
+        else if (textures[i].type == aiTextureType_SPECULAR && !specularTex)
+        {
+            specularTex = &textures[i];
         }
     }
-
     
-    // Render the mesh
+    // Bind diffuse texture (or default)
+    glActiveTexture(GL_TEXTURE0);
+    if (diffuseTex)
+    {
+        diffuseTex->bind();
+        shader.setInt("diffuse0", 0);
+    }
+    else
+    {
+        Texture& defaultDiffuse = Texture::getDefaultDiffuseTexture();
+        defaultDiffuse.bind();
+        shader.setInt("diffuse0", 0);
+    }
+    
+    // Bind specular texture (or default)
+    glActiveTexture(GL_TEXTURE1);
+    if (specularTex)
+    {
+        specularTex->bind();
+        shader.setInt("specular0", 1);
+    }
+    else
+    {
+        Texture& defaultSpecular = Texture::getDefaultSpecularTexture();
+        defaultSpecular.bind();
+        shader.setInt("specular0", 1);
+    }
 
-    if (doRender)
+    // Render the mesh
+    if (doRender && !indices.empty() && !vertices.empty())
     {
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, 0);
@@ -113,9 +105,6 @@ void Mesh::render(Shader shader,bool doRender)
         // Always good practice to set everything back to defaults once configured.
         glActiveTexture(GL_TEXTURE0);
     }
-
-
-
 }
 
 void Mesh::cleanUp()

@@ -17,6 +17,7 @@ find_package(OpenGL REQUIRED)
 include_directories(
     ${CMAKE_SOURCE_DIR}/Linking/include
     ${CMAKE_SOURCE_DIR}/OpenGlt/src
+    ${CMAKE_SOURCE_DIR}/OpenGlt/src/imgui
 )
 
 # Source files
@@ -38,6 +39,14 @@ set(SOURCES
     OpenGlt/src/Main.cpp
     OpenGlt/src/graphics/Shader.cpp
     OpenGlt/stb.cpp
+    OpenGlt/src/imgui/imgui.cpp
+    OpenGlt/src/imgui/imgui_demo.cpp
+    OpenGlt/src/imgui/imgui_draw.cpp
+    OpenGlt/src/imgui/imgui_tables.cpp
+    OpenGlt/src/imgui/imgui_widgets.cpp
+    OpenGlt/src/imgui/imgui_impl_glfw.cpp
+    OpenGlt/src/imgui/imgui_impl_opengl3.cpp
+    OpenGlt/src/SceneManager.cpp
 )
 
 # Header files
@@ -55,6 +64,10 @@ set(HEADERS
     OpenGlt/src/io/Mouse.h
     OpenGlt/src/graphics/Shader.h
     OpenGlt/src/io/Screen.h
+    OpenGlt/src/imgui/imgui.h
+    OpenGlt/src/imgui/imgui_impl_glfw.h
+    OpenGlt/src/imgui/imgui_impl_opengl3.h
+    OpenGlt/src/SceneManager.h
 )
 
 # Create executable
@@ -78,6 +91,7 @@ if(WIN32)
         user32
         gdi32
         shell32
+        comdlg32
     )
     
     # Copy DLLs to output directory

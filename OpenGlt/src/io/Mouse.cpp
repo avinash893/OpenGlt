@@ -117,3 +117,10 @@ void Mouse::cursorposCallback(GLFWwindow* window, double _x, double _y)
 	 //return keys that is is key is true and is recently chanegd	
  }
 
+ void Mouse::resetFirstMouse()
+ {
+	 firstMouse = true;
+	 dx = 0;
+	 dy = 0;
+ }
+

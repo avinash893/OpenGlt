@@ -1,6 +1,7 @@
 #include "texture.h"
 
 #include <iostream>
+#include <algorithm>
 Texture::Texture()
 {
     id = 0;
@@ -38,10 +39,35 @@ void Texture::load(bool flip) {
 
     int width, height, nChannels;
 
-    unsigned char* data = stbi_load((dir + "/" + path).c_str(), &width, &height, &nChannels, 0);
+    // Handle path construction (support both Windows and Unix separators)
+    std::string fullPath;
+    if (dir.empty()) {
+        fullPath = path;
+    } else {
+        // Normalize path separators
+        std::string normalizedDir = dir;
+        std::string normalizedPath = path;
+        
+        // Replace backslashes with forward slashes for consistency
+        std::replace(normalizedDir.begin(), normalizedDir.end(), '\\', '/');
+        std::replace(normalizedPath.begin(), normalizedPath.end(), '\\', '/');
+        
+        // Remove trailing slash from directory if present
+        if (!normalizedDir.empty() && normalizedDir.back() == '/') {
+            normalizedDir.pop_back();
+        }
+        
+        // Remove leading slash from path if present
+        if (!normalizedPath.empty() && normalizedPath.front() == '/') {
+            normalizedPath.erase(0, 1);
+        }
+        
+        fullPath = normalizedDir + "/" + normalizedPath;
+    }
+
+    unsigned char* data = stbi_load(fullPath.c_str(), &width, &height, &nChannels, 0);
 
     GLenum colorMode = GL_RGB;
-
 
     switch (nChannels) {
     case 1:
@@ -61,9 +87,20 @@ void Texture::load(bool flip) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        
+        std::cout << "Successfully loaded texture: " << fullPath << std::endl;
     }
     else {
-        std::cout << "Image not loaded at " << path << std::endl;
+        std::cout << "ERROR: Failed to load texture at: " << fullPath << std::endl;
+        std::cout << "  Directory: " << dir << ", Path: " << path << std::endl;
+        // Create a default white texture as fallback
+        unsigned char whitePixel[] = { 255, 255, 255, 255 };
+        glBindTexture(GL_TEXTURE_2D, id);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, whitePixel);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
 
     stbi_image_free(data);
