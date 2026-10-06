@@ -111,8 +111,11 @@
         scene.add(lampMesh);
 
         // Default Scene Objects
-        addCubeEntity('Gold Cube', new THREE.Vector3(0, 0.5, 0), new THREE.Vector3(1, 1, 1));
-        addSphereEntity('Sphere', new THREE.Vector3(2.5, 0.5, -0.5), new THREE.Vector3(1, 1, 1));
+        addCubeEntity('Gold Cube', new THREE.Vector3(-2.2, 0.5, 0), new THREE.Vector3(1, 1, 1));
+        addSphereEntity('Sphere', new THREE.Vector3(2.2, 0.5, 0), new THREE.Vector3(1, 1, 1));
+
+        // Auto-load bundled 3D Model into the scene
+        loadModelFromUrl('OpenGlt/assets/Models/mk18/scene.gltf', 'MK18 Gun');
 
         // Window resize
         window.addEventListener('resize', onWindowResize);
