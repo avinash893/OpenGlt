@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGlt - 3D Graphics Engine & Model Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js & Loaders (WebGL 3D Engine matching OpenGL 3.3 Core) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/TransformControls.js"></script>
+</head>
+<body>
+    <div id="canvas-container"></div>
+
+    <!-- Drag & Drop Fullscreen Overlay Indicator -->
+    <div id="drop-overlay">
+        <div class="drop-box">
+            <div class="drop-icon">&#8681;</div>
+            <div class="drop-title">DROP 3D MODEL HERE</div>
+            <div class="drop-subtitle">Supports .GLTF, .GLB, .OBJ, .STL</div>
+            <div class="drop-note">Auto-loads into scene and focuses camera</div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+        <div class="brand">
+            <span class="logo-badge">OpenGlt</span>
+            <span class="version-tag">WebGL / WebAssembly Edition</span>
+        </div>
+        <div class="header-actions">
+            <button id="btn-add-cube" class="imgui-btn">+ Cube</button>
+            <button id="btn-add-sphere" class="imgui-btn">+ Sphere</button>
+            <button id="btn-toggle-grid" class="imgui-btn active">Grid [G]</button>
+            <button id="btn-toggle-light" class="imgui-btn active">Spotlight [T]</button>
+            <label class="imgui-btn file-upload-btn">
+                <span>Browse File...</span>
+                <input type="file" id="file-input" accept=".gltf,.glb,.obj,.stl" style="display: none;">
+            </label>
+            <a href="https://github.com/avinash893/OpenGlt" target="_blank" rel="noopener noreferrer" class="imgui-btn git-btn">GitHub Repo</a>
+        </div>
+    </header>
+
+    <!-- UI Overlay Panels (Dear ImGui styled) -->
+    <main class="ui-layer">
+        <!-- Scene Hierarchy Window -->
+        <div class="imgui-window" id="window-hierarchy" style="left: 20px; top: 60px; width: 330px; height: 380px;">
+            <div class="imgui-titlebar">
+                <span>Scene Hierarchy</span>
+                <span class="window-controls">
+                    <span class="entity-count" id="entity-count">0 items</span>
+                </span>
+            </div>
+            <div class="imgui-toolbar">
+                <button id="btn-dup-selected" class="imgui-tool-btn" title="Duplicate Selected Object (Shift+D)">Dup [Shift+D]</button>
+                <button id="btn-del-selected" class="imgui-tool-btn danger" title="Delete Selected Object (Del)">Delete [Del]</button>
+                <button id="btn-focus-selected" class="imgui-tool-btn" title="Focus Camera on Selected Object (F)">Focus [F]</button>
+            </div>
+            <div class="imgui-body" id="hierarchy-list">
+                <!-- Entities populated via JavaScript -->
+            </div>
+        </div>
+
+        <!-- Object Inspector Window -->
+        <div class="imgui-window" id="window-inspector" style="left: 20px; top: 455px; width: 330px; height: 340px;">
+            <div class="imgui-titlebar">
+                <span>Object Inspector</span>
+            </div>
+            <div class="imgui-body" id="inspector-content">
+                <div class="empty-state" id="inspector-empty">No object selected.<br><span class="hint">Click any object in the 3D viewport or hierarchy to select.</span></div>
+                <div id="inspector-details" style="display: none;">
+                    <div class="prop-group">
+                        <label>Name</label>
+                        <input type="text" id="prop-name" class="imgui-input">
+                    </div>
+                    <div class="prop-group inline">
+                        <label>Visible</label>
+                        <input type="checkbox" id="prop-visible" checked>
+                    </div>
+                    <div class="section-title">Transform</div>
+                    <div class="transform-controls">
+                        <div class="axis-group">
+                            <span class="axis-badge">Position</span>
+                            <div class="axis-inputs">
+                                <span>X <input type="number" id="pos-x" step="0.1" class="axis-val"></span>
+                                <span>Y <input type="number" id="pos-y" step="0.1" class="axis-val"></span>
+                                <span>Z <input type="number" id="pos-z" step="0.1" class="axis-val"></span>
+                            </div>
+                        </div>
+                        <div class="axis-group">
+                            <span class="axis-badge">Rotation</span>
+                            <div class="axis-inputs">
+                                <span>X <input type="number" id="rot-x" step="5" class="axis-val"></span>
+                                <span>Y <input type="number" id="rot-y" step="5" class="axis-val"></span>
+                                <span>Z <input type="number" id="rot-z" step="5" class="axis-val"></span>
+                            </div>
+                        </div>
+                        <div class="axis-group">
+                            <span class="axis-badge">Scale</span>
+                            <div class="axis-inputs">
+                                <span>X <input type="number" id="scale-x" step="0.1" class="axis-val"></span>
+                                <span>Y <input type="number" id="scale-y" step="0.1" class="axis-val"></span>
+                                <span>Z <input type="number" id="scale-z" step="0.1" class="axis-val"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inspector-actions">
+                        <button id="btn-insp-grab" class="imgui-btn full">Grab / Move with Mouse [G]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- File Browser & Assets Window -->
+        <div class="imgui-window" id="window-browser" style="right: 20px; top: 60px; width: 360px; height: 420px;">
+            <div class="imgui-titlebar">
+                <span>File System / Assets</span>
+            </div>
+            <div class="browser-header">
+                <div class="drop-banner">
+                    <span class="banner-icon">&#9874;</span>
+                    <span>Drag & Drop 3D Files Anywhere to Load</span>
+                </div>
+                <div class="quick-paths">
+                    <button class="quick-btn" data-path="assets/Models">assets/Models</button>
+                    <button class="quick-btn" data-path="root">Project Root</button>
+                </div>
+            </div>
+            <div class="imgui-body" id="browser-file-list">
+                <!-- Bundled models from the user's OpenGlt repo -->
+                <div class="file-entry" data-path="OpenGlt/assets/Models/mk18/scene.gltf" data-name="MK18 Weapon">
+                    <span class="file-tag gltf">[3D]</span>
+                    <span class="file-name">mk18 / scene.gltf</span>
+                    <button class="file-load-btn">Load</button>
+                </div>
+                <div class="file-entry" data-path="OpenGlt/assets/Models/shoe/shoe.gltf" data-name="Shoe Model">
+                    <span class="file-tag gltf">[3D]</span>
+                    <span class="file-name">shoe / shoe.gltf</span>
+                    <button class="file-load-btn">Load</button>
+                </div>
+                <div class="file-entry" data-path="OpenGlt/assets/Models/lotr/scene.gltf" data-name="LOTR Troll">
+                    <span class="file-tag gltf">[3D]</span>
+                    <span class="file-name">lotr / scene.gltf</span>
+                    <button class="file-load-btn">Load</button>
+                </div>
+                <div class="file-entry" data-path="OpenGlt/assets/Models/sphere/scene.gltf" data-name="Sphere Model">
+                    <span class="file-tag gltf">[3D]</span>
+                    <span class="file-name">sphere / scene.gltf</span>
+                    <button class="file-load-btn">Load</button>
+                </div>
+                <div class="file-upload-section">
+                    <div class="upload-hint">Upload custom model from your computer:</div>
+                    <label class="imgui-btn full file-upload-btn center">
+                        <span>Select .GLTF / .GLB / .OBJ file</span>
+                        <input type="file" id="file-input-browser" accept=".gltf,.glb,.obj,.stl" style="display: none;">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gizmo & Transform Mode Controls -->
+        <div class="gizmo-bar">
+            <button class="gizmo-btn active" id="gizmo-translate" title="Translate Mode (W)">Translate</button>
+            <button class="gizmo-btn" id="gizmo-rotate" title="Rotate Mode (E)">Rotate</button>
+            <button class="gizmo-btn" id="gizmo-scale" title="Scale Mode (R)">Scale</button>
+        </div>
+
+        <!-- Bottom Status Bar -->
+        <footer class="app-statusbar">
+            <div class="status-left">
+                <span class="status-indicator"></span>
+                <span id="status-text">OpenGlt WebGL Engine Ready | Click object to select, drag gizmo or press G to move.</span>
+            </div>
+            <div class="status-right">
+                <span class="hotkey-item"><b>L-Click:</b> Select</span>
+                <span class="hotkey-item"><b>Shift+D:</b> Duplicate</span>
+                <span class="hotkey-item"><b>Del:</b> Delete</span>
+                <span class="hotkey-item"><b>G:</b> Grab/Move</span>
+                <span class="hotkey-item"><b>F:</b> Focus</span>
+                <span class="hotkey-item"><b>R-Click Drag:</b> Orbit</span>
+            </div>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

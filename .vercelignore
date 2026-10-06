@@ -1,0 +1,16 @@
+**/build/**
+**/x64/**
+**/Linking/**
+**/.git/**
+**/.vs/**
+**/.vscode/**
+**/*.pdb
+**/*.ilk
+**/*.obj
+**/*.lib
+**/*.dll
+**/*.exe
+**/*.vcxproj*
+**/*.sln
+OpenGlt/src/**
+OpenGlt/stb.cpp
